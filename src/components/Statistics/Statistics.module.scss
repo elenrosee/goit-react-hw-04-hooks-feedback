@@ -1,0 +1,21 @@
+.statistics_list {
+  margin-left: 30px;
+}
+
+.item {
+  display: flex;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.87;
+  letter-spacing: 0.06em;
+  color: rgb(6, 45, 82);
+
+  :not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  & p:last-child {
+    margin-left: 5px;
+  }
+}
