@@ -1,64 +1,55 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 
 import Section from "./components/Section";
 import FeedbackOptions from "./components/FeedbackOptions";
 import Statistics from "./components/Statistics";
 import Notification from "./components/Notification";
 
-class App extends React.Component {
-  static defaultProps = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-  static propTypes = {
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  };
+export default function App() {
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+  const handelIncrementNew = (e) => {
+    const { id } = e.target;
 
-  handelIncrement = (e) => {
-    Object.keys(this.state).map((feedbackName) => {
-      return e.target.id === feedbackName
-        ? this.setState((state) => {
-            return { [feedbackName]: state[feedbackName] + 1 };
-          })
-        : "";
-    });
+    switch (id) {
+      case "good":
+        setGood((state) => state + 1);
+        break;
+
+      case "neutral":
+        setNeutral((state) => state + 1);
+        break;
+
+      case "bad":
+        setBad((state) => state + 1);
+        break;
+
+      default:
+        return;
+    }
   };
 
-  countTotalFeedback = () =>
-    Object.values(this.state).reduce((sum, current) => sum + current, 0);
-
-  render() {
-    return (
-      <React.Fragment>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={this.state}
-            onLeaveFeedback={this.handelIncrement}
+  return (
+    <React.Fragment>
+      <Section title="Please leave feedback">
+        <FeedbackOptions
+          options={{ good, neutral, bad }}
+          onLeaveFeedback={handelIncrementNew}
+        />
+      </Section>
+      <Section title="Statistics">
+        {good + bad + neutral === 0 ? (
+          <Notification message="No feedback given" />
+        ) : (
+          <Statistics
+            options={{ good, neutral, bad }}
+            total={good + bad + neutral}
           />
-        </Section>
-        <Section title="Statistics">
-          {this.countTotalFeedback() === 0 ? (
-            <Notification message="No feedback given" />
-          ) : (
-            <Statistics
-              options={this.state}
-              total={this.countTotalFeedback()}
-            />
-          )}
-        </Section>
-      </React.Fragment>
-    );
-  }
+        )}
+      </Section>
+    </React.Fragment>
+  );
 }
-
-export default App;

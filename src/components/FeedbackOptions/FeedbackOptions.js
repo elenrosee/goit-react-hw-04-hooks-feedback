@@ -1,8 +1,7 @@
-import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./FeedbackOptions.module.scss";
 
-const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+export default function FeedbackOptions({ options, onLeaveFeedback }) {
   return (
     <ul className={styles.buttons_list}>
       {Object.keys(options).map((option) => (
@@ -19,6 +18,4 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
       ))}
     </ul>
   );
-};
-
-export default FeedbackOptions;
+}

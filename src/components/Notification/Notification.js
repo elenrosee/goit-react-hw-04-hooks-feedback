@@ -1,10 +1,5 @@
-import React, { Component } from "react";
 import styles from "./Notification.module.scss";
 
-class Notification extends Component {
-  render() {
-    return <h3 className={styles.title}>{this.props.message}</h3>;
-  }
+export default function Notification({ message }) {
+  return <h3 className={styles.title}>{message}</h3>;
 }
-
-export default Notification;
