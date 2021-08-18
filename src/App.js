@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 
 import Section from "./components/Section";
 import FeedbackOptions from "./components/FeedbackOptions";
@@ -11,7 +10,7 @@ export default function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const handelIncrementNew = (e) => {
+  const handelIncrement = (e) => {
     const { id } = e.target;
 
     switch (id) {
@@ -33,11 +32,11 @@ export default function App() {
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Section title="Please leave feedback">
         <FeedbackOptions
           options={{ good, neutral, bad }}
-          onLeaveFeedback={handelIncrementNew}
+          onLeaveFeedback={handelIncrement}
         />
       </Section>
       <Section title="Statistics">
@@ -50,6 +49,6 @@ export default function App() {
           />
         )}
       </Section>
-    </React.Fragment>
+    </Fragment>
   );
 }
